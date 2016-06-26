@@ -47,10 +47,14 @@ $(function ()
 		@endforeach 
 		data.push(object);
 	@endforeach
-	
-	if (data.length === 0) data.push([]);
 
 	var hot = handson($('#handson'));
+	if (data.length > 0)
+	{
+		hot.updateSettings({
+			data: data 
+		});
+	}
 	hot.selectCell(0, 0);
 
 	function handson(el)
@@ -58,7 +62,6 @@ $(function ()
 		var hat = el.handsontable({
 			columns: columns()
 			, afterChange: afterChange
-			, data: data
 		});
 		return hat.handsontable('getInstance');
 	}
