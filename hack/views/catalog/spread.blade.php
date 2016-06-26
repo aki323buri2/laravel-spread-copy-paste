@@ -15,6 +15,10 @@ foreach ((array)$cache as $row)
 ?>
 @push('styles')
 <style>
+.paste.input > input[type="text"]
+{
+	width: 30rem;
+}
 #handson .catno { width: 80px; }
 #handson .shcds { width: 80px; }
 #handson .eoscd { width: 80px; }
@@ -32,15 +36,21 @@ foreach ((array)$cache as $row)
 <p>
 	商品カタログ - 表形式で一括編集
 </p>
+<div class="ui left icon input paste">
+	<i class="paste icon"></i>
+	<input type="text" id="paste" placeholder="ここを右クリックして貼り付けをクリックしてください">
+</div>
 <div id="handson"></div>
 @endsection
 @push('scripts')
 <script>
 $(function ()
 {
+	var paste = $('#paste');
 	var hot = handson($('#handson'));
 
 	applyCacheDatat(hot);
+	applyCopyPasteByClick(hot, paste);
 
 	hot.selectCell(0, 0);
 
@@ -106,6 +116,27 @@ $(function ()
 		}
 		
 		return hot;
+	}
+	function applyCopyPasteByClick(hot, paste)
+	{
+		paste.on('paste', function (e)
+		{
+			e.preventDefault();
+			e.stopPropagation();
+			var clipboardData = e.clipboardData || e.originalEvent.clipboardData;
+			var format = 'text/plain';
+			if (clipboardData === undefined)
+			{
+				//IE..
+				clipboardData = window.clipboardData;
+				format = 'text';
+			}
+			var data = clipboardData.getData(format);
+			
+			hot.selectCell(0, 0);
+			hot.updateSettings({data: [[]]});
+			hot.copyPaste.triggerPaste(null, data);
+		});
 	}
 });
 </script>
