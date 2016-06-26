@@ -40,7 +40,7 @@ $(function ()
 {
 	var data = [];
 	var object;
-	@foreach (array)@$objects as $object)
+	@foreach ((array)@$objects as $object)
 		object = {};
 		@foreach($object as $name => $value)
 			object.{{ $name }} = '{{ $value }}';
