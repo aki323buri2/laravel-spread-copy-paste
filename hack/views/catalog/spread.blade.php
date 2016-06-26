@@ -47,7 +47,8 @@ $(function ()
 		@endforeach 
 		data.push(object);
 	@endforeach
-	console.log(data);
+	
+	if (data.length === 0) data.push([]);
 
 	var hot = handson($('#handson'));
 	hot.selectCell(0, 0);
