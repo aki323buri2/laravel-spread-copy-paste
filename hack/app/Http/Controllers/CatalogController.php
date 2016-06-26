@@ -26,9 +26,18 @@ class CatalogController extends Controller
     }
     public function session(Request $request)
     {
+    	$method = $request->method();
     	$name = $request->input('name');
-    	$data = $request->input('data');
-    	$request->session()->put($name, json_encode($data));
+    	if ($method === 'POST')
+    	{
+	    	$data = $request->input('data');
+	    	$request->session()->put($name, json_encode($data));
+	    }
+	    else if ($method === 'GET')
+	    {
+	    	$data = $request->session()->get($name);
+	    	return $data;
+	    }
     }
 
     public function postIndex(Request $request) { return $this->index($request); }
@@ -36,5 +45,6 @@ class CatalogController extends Controller
     public function postSpread(Request $request) { return $this->spread($request); }
     public function  getSpread(Request $request) { return $this->spread($request); }
     public function postSession(Request $request) { return $this->session($request); }
+    public function  getSession(Request $request) { return $this->session($request); }
 
 }

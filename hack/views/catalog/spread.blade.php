@@ -98,24 +98,22 @@ $(function ()
 	}
 	function applyCacheDatat(hot)
 	{
-		var data = [];
-		var object;
-		@foreach ((array)@$objects as $object)
-			object = {};
-			@foreach($object as $name => $value)
-				object.{{ $name }} = '{{ $value }}';
-			@endforeach 
-			data.push(object);
-		@endforeach
-
-		if (data.length > 0)
+		$(function ()
 		{
-			hot.updateSettings({
-				data: data 
+			$.ajax({
+				url: '/catalog/session'
+				, method: 'get'
+				, data: {
+					name: 'spread-cache'
+				}
+			})
+			.done(function (data)
+			{
+				data = JSON.parse(data);
+				if (data.length === 0) return;
+				hot.populateFromArray(0, 0, data);
 			});
-		}
-		
-		return hot;
+		});
 	}
 	function applyCopyPasteByClick(hot, paste)
 	{
