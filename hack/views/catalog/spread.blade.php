@@ -40,7 +40,7 @@ $(function ()
 {
 	var data = [];
 	var object;
-	@foreach ($objects as $object)
+	@foreach (array)@$objects as $object)
 		object = {};
 		@foreach($object as $name => $value)
 			object.{{ $name }} = '{{ $value }}';
@@ -51,7 +51,7 @@ $(function ()
 
 	var hot = handson($('#handson'));
 	hot.selectCell(0, 0);
-	
+
 	function handson(el)
 	{
 		var hat = el.handsontable({
