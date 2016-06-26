@@ -21,7 +21,7 @@ foreach ((array)$cache as $row)
 #handson .mekame { width: 150px; }
 #handson .shiren { width: 60px; }
 #handson .hinmei { width: 250px; }
-#handson .sanchi { width: 100px; }
+#handson .sanchi { width: 120px; }
 #handson .tenyou { width: 100px; }
 #handson .nouka { width: 90px; }
 #handson .baika { width: 90px; }
@@ -38,23 +38,10 @@ foreach ((array)$cache as $row)
 <script>
 $(function ()
 {
-	var data = [];
-	var object;
-	@foreach ((array)@$objects as $object)
-		object = {};
-		@foreach($object as $name => $value)
-			object.{{ $name }} = '{{ $value }}';
-		@endforeach 
-		data.push(object);
-	@endforeach
-
 	var hot = handson($('#handson'));
-	if (data.length > 0)
-	{
-		hot.updateSettings({
-			data: data 
-		});
-	}
+
+	applyCacheDatat(hot);
+
 	hot.selectCell(0, 0);
 
 	function handson(el)
@@ -98,6 +85,27 @@ $(function ()
 		{
 			console.log(data);
 		});
+	}
+	function applyCacheDatat(hot)
+	{
+		var data = [];
+		var object;
+		@foreach ((array)@$objects as $object)
+			object = {};
+			@foreach($object as $name => $value)
+				object.{{ $name }} = '{{ $value }}';
+			@endforeach 
+			data.push(object);
+		@endforeach
+
+		if (data.length > 0)
+		{
+			hot.updateSettings({
+				data: data 
+			});
+		}
+		
+		return hot;
 	}
 });
 </script>
