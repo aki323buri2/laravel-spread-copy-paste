@@ -1,0 +1,22 @@
+{
+  "name": "html2",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+
+  , "devDependencies": {
+      "jquery": "*"
+    , "jquery-ui": "*"
+    , "font-awesome": "*"
+    , "semantic": "*"
+    , "handsontable": "*"
+  }
+}
